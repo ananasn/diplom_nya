@@ -1,0 +1,70 @@
+<html>
+	<head>
+		<title>{{title}}</title>
+		<style>
+			body { margin: 0; }
+		</style>
+	</head>
+	<body>
+		<script src="{{ url_for('static', filename='js/three.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/OrbitControls.js') }}"></script>
+		<script>
+		//основные объекты
+			var scene = new THREE.Scene();
+			var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.001, 10000 );
+				camera.position.x = 0;
+				camera.position.y = 20;
+				camera.position.z = 0;
+			var renderer = new THREE.WebGLRenderer();
+				renderer.setClearColorHex(0xEEEEEE,1.0);
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				//renderer.shadowMapEnabled = true;
+				document.body.appendChild( renderer.domElement );
+				
+		//оси		
+			var axes = new THREE.AxisHelper( 20 );
+				scene.add(axes);
+		//источник света	
+			var spotLight = new THREE.SpotLight( 0xffffff );
+				spotLight.position.set( 40, 50, 0 );
+				//spotLight.castShadow = true;
+				scene.add(spotLight );
+			scene.add( new THREE.AmbientLight( 0x222222 ) );
+				
+	
+		//координаты	
+		//правосторонняя система координат
+		ver = [%s		 ]
+		face = [%s
+		]
+		
+		var geom = new THREE.Geometry();
+		geom.vertices = ver;		
+		geom.faces = face;
+		geom.mergeVertices();
+		geom.computeFaceNormals();
+		
+		//материал
+		var material = new THREE.MeshLambertMaterial( { color: 0x999999 } );				
+				var mesh = new THREE.Mesh( geom, material );
+				mesh.material.side = THREE.DoubleSide;
+				scene.add( mesh );
+		//мышь
+		var controls;
+			controls = new THREE.OrbitControls(camera);
+			controls.addEventListener( 'change',render );
+			controls.update();
+		
+		//луп
+			function render(){				
+				requestAnimationFrame(render);
+				//mesh.rotation.x += 0.01;
+				//mesh.rotation.y += 0.01;
+				//mesh.rotation.z += 0.01;				
+				renderer.render(scene, camera);
+			};
+
+			render();
+		</script>
+	</body>
+</html>
