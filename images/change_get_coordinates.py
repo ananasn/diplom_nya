@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from PIL import Image, ImageDraw
+import json
 
 img = Image.open("ti.jpg")
 img = img.transpose(Image.FLIP_LEFT_RIGHT)
@@ -14,7 +15,7 @@ heightmap = []
 coord = []#вершины
 face = [] #треуголиные грани
 step = 0
-norm = 3.0
+norm = 2.0
 pix_w = 0.1
 pix_h = 0.1
 x = 0
@@ -50,27 +51,34 @@ temp = 0
 for j in xrange(0,height):
     for i in xrange(0,width):
         if j == 0:
-            face.append((1+step, 0+step, 2+step))
-            face.append((0+step, 3+step, 2+step))
-            face.append((3+step, 4+step, 2+step))
-            face.append((4+step, 1+step, 2+step))
+            face.append((0, 1+step, 0+step, 2+step))
+            face.append((0, 0+step, 3+step, 2+step))
+            face.append((0, 3+step, 4+step, 2+step))
+            face.append((0, 4+step, 1+step, 2+step))
             step+=3
         elif j==1:
-            face.append((1+step, 0+step-(width*3), 2+step)) if i==0 else face.append((1+step, 0+step+1-(width*3), 2+step))
-            face.append((0+step-(width*3), 3+step-(width*3), 2+step)) if i==0 else face.append((0+step+1-(width*3), 3+step-(width*3), 2+step))
-            face.append((3+step-(width*3), 4+step-1, 2+step))
-            face.append((4+step-1, 1+step, 2+step))
+            face.append((0, 1+step, 0+step-(width*3), 2+step)) if i==0 else face.append((0, 1+step, 0+step+1-(width*3), 2+step))
+            face.append((0, 0+step-(width*3), 3+step-(width*3), 2+step)) if i==0 else face.append((0, 0+step+1-(width*3), 3+step-(width*3), 2+step))
+            face.append((0, 3+step-(width*3), 4+step-1, 2+step))
+            face.append((0, 4+step-1, 1+step, 2+step))
             step+=2
         else:
-            face.append((1+step, 0+step-(width*2), 2+step))
-            face.append((0+step-(width*2), 3+step-(width*2)-1, 2+step))
-            face.append((3+step-(width*2)-1, 4+step-1, 2+step))
-            face.append((4+step-1, 1+step, 2+step))
+            face.append((0, 1+step, 0+step-(width*2), 2+step))
+            face.append((0, 0+step-(width*2), 3+step-(width*2)-1, 2+step))
+            face.append((0, 3+step-(width*2)-1, 4+step-1, 2+step))
+            face.append((0, 4+step-1, 1+step, 2+step))
             step+=2
     step+=1
+    
+coords_list = [round(j,2) for i in coord for j in i]
+face_list = [j for i in face for j in i]
 
+
+
+with open('../app/static/model/model.js', 'w') as outfile:
+    json.dump(dict(zip(["vertices","faces"],[coords_list,face_list])+[("metadata",{"formatVersion" : 3})]), outfile)
 #строка вершин
-coord_instr = []
+"""coord_instr = []
 for i in coord:
         coord_instr.append("new THREE.Vector3(%.2f,%.2f,%.2f)"%i)
 coordinstr = ",".join(coord_instr)
@@ -86,7 +94,7 @@ with open("../tmp/test4.html","r") as out:
     text = out.read()
 text = text%(coordinstr,faceinstr)
 with open("../app/templates/test4.html","w") as out:
-    out.write(text)
+    out.write(text)"""
 
 img.save("grey_mirror_ti.png")
 

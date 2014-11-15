@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<title>My first Three.js app</title>
+		<style>
+			body { margin: 0; }
+			
+		</style>
+	</head>
+	<body>
+		<script src="js/three.min.js"></script>
+		<script src="js/OrbitControls.js"></script>
+		<script>
+		//основные объекты
+			var scene = new THREE.Scene();
+			var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.001, 10000 );
+				camera.position.x = 0;
+				camera.position.y = 50;
+				camera.position.z = 25;
+			var renderer = new THREE.WebGLRenderer();
+				renderer.setClearColorHex(0xEEEEEE,1.0);
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				//renderer.shadowMapEnabled = true;
+				document.body.appendChild( renderer.domElement );
+				
+		//оси		
+			var axes = new THREE.AxisHelper( 20 );
+				scene.add(axes);
+		//источник света	
+			var spotLight = new THREE.SpotLight( 0xffffff );
+				spotLight.position.set( -20, 70, 0 );
+				scene.add(spotLight );
+			scene.add( new THREE.AmbientLight( 0x222222 ) );
+				
+		var loader = new THREE.JSONLoader();
+		loader.load( "js/d.json", function( geometry ) {
+		geometry.computeFaceNormals();
+		var material = new THREE.MeshPhongMaterial( { color: 0x999999 } );
+		var mesh = new THREE.Mesh( geometry, material );
+		mesh.material.side = THREE.DoubleSide;
+		mesh.position.x = -10;
+		mesh.position.z = -10;
+		
+		scene.add( mesh );
+		});
+
+
+		//мышь
+		var controls;
+			controls = new THREE.OrbitControls(camera);
+			controls.addEventListener( 'change',render );
+			controls.update();
+		
+		//луп
+			function render(){				
+				requestAnimationFrame(render);				
+				renderer.render(scene, camera);
+			};
+
+			render();
+		</script>
+	</body>
+</html>
