@@ -77,31 +77,6 @@ face_list = [j for i in face for j in i]
 
 with open('../app/static/model/model.js', 'w') as outfile:
     json.dump(dict(zip(["vertices","faces"],[coords_list,face_list])+[("metadata",{"formatVersion" : 3})]), outfile)
-#строка вершин
-"""coord_instr = []
-for i in coord:
-        coord_instr.append("new THREE.Vector3(%.2f,%.2f,%.2f)"%i)
-coordinstr = ",".join(coord_instr)
 
-#строка треугольных граней
-face_instr = []
-for i in face:
-       face_instr.append("new THREE.Face3(%d,%d,%d)"%i)
-faceinstr = ",".join(face_instr)
-
-#подставляем       
-with open("../tmp/test4.html","r") as out:
-    text = out.read()
-text = text%(coordinstr,faceinstr)
-with open("../app/templates/test4.html","w") as out:
-    out.write(text)"""
 
 img.save("grey_mirror_ti.png")
-
-#with open("../model/coords.txt","w") as out:
-    #for i in coord:
-       # out.write("new THREE.Vector3(%.2f,%.2f,%.2f),"%i)
-        
-#with open("../model/faces.txt","w") as out:
-   # for i in face:
-       # out.write("new THREE.Face3(%d,%d,%d),"%i)
