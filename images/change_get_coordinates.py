@@ -3,18 +3,17 @@ from PIL import Image, ImageDraw
 import json
 
 img = Image.open("ti.jpg")
-img = img.transpose(Image.FLIP_LEFT_RIGHT)
 imgDraw = ImageDraw.Draw(img)
 
 width = img.size[0]#size возвращает кортеж(ширина,высота).
 height = img.size[1]
 pixels = img.load()#Выгружаем значения пикселей.Возвращает объект, который по индексу [w,h] возвращает (R,G,B)
-#Для получения этого преобразования необходимо «усреднить» каждый пиксель.
+#Для получения преобразования необходимо «усреднить» каждый пиксель.
 
 heightmap = []
 coord = []#вершины
 face = [] #треуголиные грани
-norm = 2.0
+norm = 1.0
 pix_w = 0.5
 pix_h = 0.5
 x = 0
@@ -25,7 +24,7 @@ for j in xrange(0,height):
         res = (pixels[i, j][0]+pixels[i,j][1]+pixels[i,j][2])//3
         imgDraw.point((i, j), (res,res,res)) #градации серого
         h = round(res*(norm/255.0), 2)
-        heightmap.append(str(round(res*(norm/255.0),2)))
+        heightmap.append(str(h))
         if j == 0 :
             coord.append((x, h, z))
             coord.append((x, h, z+pix_h))

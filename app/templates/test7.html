@@ -3,49 +3,42 @@
 	<head>
 		<meta charset="utf-8">
 		<title>{{title}}</title>
-		<link rel="stylesheet" media="screen" href="{{ url_for('static', filename='css/style.css') }}">
 		<link rel="stylesheet" href= "{{ url_for('static', filename='css/bootstrap.min.css') }}" >
 		<link rel="stylesheet" media="screen" href="{{ url_for('static', filename='css/custom-theme.css') }}">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
-		<div class="container-fluid">
-		  <div class="row">
-				<div id="text">
-					<h1 class="main-h">"Meow meow meow."</h1>
-					<p class="main-h">Test Model Chi!</p>
-					</br>
-					</br>
-					<button type="button" class="btn btn-default btn-lg btn-block">Load image</button>
-				</div>
-				<div id="particles-js" class="col-md-6">
-					<script src="{{ url_for('static', filename='js/particles.js') }}"></script>
-					<script src="{{ url_for('static', filename='js/app.js') }}"></script>
-				</div>
-				<div id ="canvas" class="col-md-6">
-					<script src="{{ url_for('static', filename='js/three.min.js') }}"></script>
-					<script src="{{ url_for('static', filename='js/OrbitControls.js') }}"></script>
-				<script>
+		<div id="text">
+	                	<h1 class="main-h">"Meow meow meow."</h1>
+			            <p class="main-h">Test Model Chi!</p>
+		             	</br>
+		            	</br>
+			<button type="button" class="btn btn-default btn-lg btn-block">Load image</button>
+		</div>
+		<script src="{{ url_for('static', filename='js/three.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/OrbitControls.js') }}"></script>
+		<script>
 				//основные объекты
 					var scene = new THREE.Scene();
-					var camera = new THREE.PerspectiveCamera( 45, (window.innerWidth)/2/window.innerHeight, 0.001, 10000 );
+					var camera = new THREE.PerspectiveCamera( 45, (window.innerWidth)/window.innerHeight, 0.001, 10000 );
 						camera.position.x = 0;
-						camera.position.y = 220;
-						camera.position.z = 230;
+						camera.position.y = 250;
+						camera.position.z = 10;
 						
-					var container = document.getElementById( 'canvas' );
-					document.body.children[0].children[0].appendChild( container );
-					var renderer = new THREE.WebGLRenderer();
-						renderer.setClearColor(0x336699, 0);
-						renderer.setSize( window.innerWidth/2, window.innerHeight );
+					var container = document.createElement('div');
+					container.id = 'canvas'
+					document.body.appendChild( container);
+					var renderer = new THREE.WebGLRenderer({ alpha: true });
+						renderer.setClearColor(0x000000, 0 );
+						renderer.setSize( window.innerWidth, window.innerHeight );
 						container.appendChild( renderer.domElement );
 				//оси		
-					var axes = new THREE.AxisHelper( 20 );
-						scene.add(axes);
+				//	var axes = new THREE.AxisHelper( 20 );
+						//scene.add(axes);
 				//источник света	
 					var spotLight = new THREE.SpotLight( 0xffffff );
-						spotLight.position.set( 40, 99, 0 );
+						spotLight.position.set( 40, 300, 0 );
 						scene.add(spotLight );
 				   	scene.add( new THREE.AmbientLight( 0x222222 ) );
 					
@@ -56,8 +49,8 @@
 								var material = new THREE.MeshPhongMaterial(  { color: 0xbbbbbb, shininess: 50, shading: THREE.SmoothShading});
 								mesh = new THREE.Mesh( geometry, material );
 								mesh.material.side = THREE.DoubleSide;
-								mesh.position.x = -70;
-								mesh.position.z = -10;
+								mesh.position.x = 0;
+								mesh.position.z = -50;
 								scene.add( mesh );
 							});
 							
@@ -76,11 +69,8 @@
 					};
 		
 					render();
-				</script>
-			</div>
-		  </div>
-		</div>
+		</script>
 				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-				<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+				<<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 	</body>
 </html>
