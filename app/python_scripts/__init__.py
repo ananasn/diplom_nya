@@ -1,0 +1,1 @@
+from change_get_coordinates import make_json_model

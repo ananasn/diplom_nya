@@ -6,22 +6,24 @@ html,body{
 
 #text{
 position: absolute;
-z-index: 0;
+z-index: 10;
 top: 10%;
 left: 15%;
 }
+
 #canvas{
 position: absolute; 
 right:15px;
-z-index:10;
+z-index:0;
 }
+
 .main-h{
 text-align:center;
 font-family: 'Poiret One', cursive;
 color: #fff;
 }
+
 .btn{
--webkit-transition-duration: 0.03s;
 box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18),0 4px 15px 0 rgba(0,0,0,0.15);
 font-family: 'Poiret One', cursive;
 border-width: 3px;
@@ -32,6 +34,7 @@ background-image: none;
 font-size: 22px;
 color: #fff;
 }
+
 .btn:hover{
 font-family: 'Poiret One', cursive;
 background:#224b75;
