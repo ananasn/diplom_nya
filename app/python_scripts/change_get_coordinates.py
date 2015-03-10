@@ -2,16 +2,6 @@
 from PIL import Image, ImageDraw
 import json
 
-import time
-def howlong(f):
-   def tmp(*args, **kwargs):
-       t = time.time()
-       res = f(*args, **kwargs)
-       print "time: %f" % (time.time()-t)
-       return res
-   return tmp
-
-@howlong
 def make_json_model(name):
     img = Image.open(name)
     imgDraw = ImageDraw.Draw(img)
@@ -29,7 +19,6 @@ def make_json_model(name):
     pix_h = 0.5
     x = 0
     z = 0
-    
     for j in xrange(0, height):
         for i in xrange(0, width):
             res = (pixels[i, j][0] + pixels[i,j][1] + pixels[i,j][2])//3
@@ -76,10 +65,9 @@ def make_json_model(name):
                 0, 4+step-1, 1+step, 2+step])
                 step+=2
         step+=1
-    print('lalala')
-    print(len(coord), len(face))
     out = str(json.dumps(dict(zip(["vertices","faces"], 
                     [coord,face])+[("metadata",{"formatVersion" : 3})])) )
     with open('./app/static/model/model_1.js', 'w') as outfile:
         outfile.write(out)
+    return heightmap,width,height,norm
 #make_json_model('../images/upload_pictures/upload_picture.jpg')

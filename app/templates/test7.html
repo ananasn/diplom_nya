@@ -11,16 +11,25 @@
 	</head>
 	<body>
 		<div id="text">
-	                	<h1 class="main-h">Engrave your picture</h1>
-			            <h4 class="main-h">Сhoose image and get G-code </h4>
-		             	</br>
-		            	</br>
-		            	<form id="upload-file" action="" method="post" enctype="multipart/form-data">
-		            	<p align="center"><input style="color:#ffffff;" type=file name=file></p>
-   						<input id="upload-file-btn" class="btn btn-default btn-lg btn-block" name=file type="button" value="Load image"></p>
-   						</form>
-   						<button type="button" class="btn btn-default btn-lg btn-block" onclick="changeModel()">Watch 3D-model</button>
-						<button type="button" class="btn btn-default btn-lg btn-block">Get G-code</button>
+						<table>
+						<tr><h1 class="main-h">Engrave your picture</h1></tr>
+			            <tr><h4 class="main-h">Сhoose image and get G-code </h4></tr>
+		             	<tr></tr>
+		            	<tr></tr>
+		            	<tr>
+		            		<form id="upload-file" action="" method="post" enctype="multipart/form-data">
+		            			<p align="center"><input style="color:#ffffff;" type=file name=file></p>
+   								<input id="upload-file-btn" class="btn btn-default btn-lg btn-block" name=file type="button" value="Load image"></p>
+   							</form>
+   						</tr>
+   						<tr>
+   							<button type="button" class="btn btn-default btn-lg btn-block" onclick="changeModel()">Watch 3D-model</button>
+  						</tr>
+  						<tr>
+   							<form method="POST"  action="/download">
+								<button id="download" type="sumbit" class="btn btn-default btn-lg btn-block">Get G-code</button>
+							</form>
+						</tr>
 		</div>
 		<script src="{{ url_for('static', filename='js/three.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/OrbitControls.js') }}"></script>
@@ -66,8 +75,8 @@
 					function changeModel(){
 						scene.remove(mesh);
 						loader.load("{{new_model_path}}",function(geometry) {
-						    var new_material = material;
-						    var new_mesh = new THREE.Mesh( geometry,new_material);
+						  	var new_material = material;
+						   	var new_mesh = new THREE.Mesh( geometry,new_material);
 						    new_material.side = THREE.DoubleSide;
 						    new_mesh.position.x = 0;
 						    new_mesh.position.z = -50;
@@ -82,7 +91,7 @@
 					controls.update();
 				
 				//loop
-					var time = 0.0;
+					var time = 0.0; 
 					function render(){				
 						requestAnimationFrame(render);
 						renderer.render(scene, camera);

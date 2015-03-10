@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import copy
 
-from change_get_coordinates import heightmap, width, height, norm
+#from change_get_coordinates import heightmap, width, height, norm
 
 
 class Generator(object):
@@ -77,7 +77,3 @@ class Generator(object):
             depth.append( [ str(self.norm - float(heightmap[i*w + j])) \
                              for j in xrange(w) ])
         return depth
-        
-g = Generator(heightmap, height, width, 3.0, 0.5, norm)
-gcode_list = g.generate()
-g.write(gcode_list)
