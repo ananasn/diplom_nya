@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Pragma" content="no-cache">
+		<title>{{title}}</title>
+		<link rel="stylesheet" media="screen" href="{{ url_for('static', filename='css/custom-theme.css') }}">
+		<link href='https://fonts.googleapis.com/css?family=Poiret+One&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
+	</head>
+	<body>
+	    <script src="{{ url_for('static', filename='js/three.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/OrbitControls.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/STLLoader.js') }}"></script>
+		<script>
+			var scene = new THREE.Scene();
+			var camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 
+													 10, 1000);
+			camera.position.set(0, 300, 10);
+				
+			var container = document.createElement('div');
+			container.id = 'canvas'
+			document.body.appendChild( container);
+			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+				renderer.setClearColor(0x000000, 0);
+				renderer.shadowMapEnabled = true;
+				renderer.shadowMapSoft = true;
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+				
+			//	axes	
+			var axes = new THREE.AxisHelper( 20 );
+				scene.add(axes);
+				
+			// light
+			scene.add( new THREE.AmbientLight(0x777777) );
+			var spotLight = new THREE.SpotLight(0xffffff);
+				spotLight.position.set(40, 300, 0);
+				scene.add(spotLight );
+			var directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+				directionalLight.position.set(0, 4, -1);
+				directionalLight.shadowCameraLeft = -3000;
+				directionalLight.shadowCameraRight = 3000;
+				directionalLight.shadowCameraTop = 3000;
+				directionalLight.shadowCameraBottom = -3000;
+				scene.add( directionalLight );
+			var pointLight = new THREE.PointLight(0xffffff, 1);
+				pointLight.position.set(0, 0, 3);
+				scene.add(pointLight);
+				
+			// model
+			var loader = new THREE.STLLoader();
+				loader.load( "{{model_path}}", function( geometry ) {
+					material = new THREE.MeshPhongMaterial( { color: 0x255000000, shininess: 90,
+																	shading: THREE.SmoothShading});
+					mesh = new THREE.Mesh( geometry, material );
+					//mesh.material.side = THREE.DoubleSide;
+					scene.add( mesh);
+					
+				});
+					
+			// mouse
+			var controls;
+				controls = new THREE.OrbitControls( camera );
+				controls.addEventListener( 'change', render );
+			function animate() {
+			requestAnimationFrame(animate);
+			controls.update();
+		
+			}
+				
+			//loop
+			var time = 0.0; 
+			function render(){				
+				requestAnimationFrame(render);
+				renderer.render(scene, camera);
+			};
+
+			render();
+		</script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	</body>
+</html>

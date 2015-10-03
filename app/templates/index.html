@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Pragma" content="no-cache">
+		<title>{{title}}</title>
+		<link rel="stylesheet" href= "{{ url_for('static', filename='css/bootstrap.min.css') }}" >
+		<link rel="stylesheet" media="screen" href="{{ url_for('static', filename='css/custom-theme.css') }}">
+		<link href='https://fonts.googleapis.com/css?family=Poiret+One&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
+	</head>
+	<body>
+		<div  id = panel class="row">
+			<div class="col-xs-6 col-md-4"></div>
+			<div class="col-xs-6 col-md-4" id="text">
+							<table>
+							<tr><h1 class="main-h">Engrave your picture</h1></tr>
+				            <tr><h4 class="main-h">Сhoose an image and get G-code </h4></tr>
+			            	<tr>
+			            		<form id="upload-file" action="" method="post" enctype="multipart/form-data">
+			            			<p align="center"><input style="color:#ffffff;" type=file name=file></p>
+		   							<input id="upload-file-btn" class="btn btn-default btn-lg btn-block" name=file type="button" value="Load your picture"></p>
+		   						</form>
+		   					</tr>
+		   					<tr>
+		   						<a href="/editorpage" target="_blank" class="btn btn-default btn-lg btn-block">Edit the picture</a>
+		  					</tr>
+		   					<tr>
+		   						<a href="/model" target="_blank" class="btn btn-default btn-lg btn-block">Watch 3D-model</a>
+		  					</tr>
+		  					<tr id="get_model_button">
+		   						<form method="POST"  action="/download_model">
+									<button id="download_model" type="sumbit" class="btn btn-default btn-lg btn-block">Download Model</button>
+								</form>
+							</tr>
+		  					<tr id="get_button">
+		   						<form method="POST"  action="/download">
+									<button id="download" type="sumbit" class="btn btn-default btn-lg btn-block">Download G-code</button>
+								</form>
+							</tr>
+			</div>
+			<div class="col-xs-6 col-md-4"></div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="{{url_for('static', filename='js/upload.js')}}"></script>
+		<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	</body>
+</html>

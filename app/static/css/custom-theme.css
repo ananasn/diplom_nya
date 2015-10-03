@@ -4,11 +4,12 @@ html,body{
 	background:#336699;
 }
 
-#text{
-position: absolute;
-z-index: 10;
-top: 10%;
-left: 15%;
+.row{
+margin-top:10%;
+}
+
+#get_button{
+margin-top:50px;
 }
 
 #canvas{
@@ -33,6 +34,7 @@ border-radius: 25px;
 background-image: none;
 font-size: 22px;
 color: #fff;
+outline: none; 
 }
 
 .btn:hover{
@@ -42,4 +44,22 @@ border-radius: 25px;
 border-color: #fff;
 font-size: 22px;
 color: #fff;
+}
+
+.myslider{
+}
+
+.line_range{
+font-family: 'Poiret One', cursive;
+font-size: 22px;
+color: #fff;
+}
+
+#canvas_div{
+width: 100%;
+text-align:center;
+}
+
+canvas {
+display: inline;
 }

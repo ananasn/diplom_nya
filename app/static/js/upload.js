@@ -11,4 +11,5 @@ $(function() {
             		async: false,
             		success: function(data) {
                 	console.log('Success!');
+                	window.alert("Success!");
             		},});});});	
